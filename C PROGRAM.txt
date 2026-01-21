@@ -1,0 +1,91 @@
+
+#include <stdio.h>
+
+int main() {
+    int pin = 1234;
+    int entered_pin;
+    int attempts = 0;
+    int balance = 5000;
+    int choice;
+    int amount;
+    int card_blocked = 0;
+
+    printf("========== ATM SYSTEM ==========\n");
+    printf("You have 3 attempts to enter correct PIN\n");
+    printf("After 3 failed attempts, card will be blocked\n");
+    printf("================================\n\n");
+
+    // Card verification - maximum 3 attempts
+    while (attempts < 3) {
+        printf("Enter your PIN: ");
+        scanf("%d", &entered_pin);
+
+        if (entered_pin == pin) {
+            printf("\n*** PIN Verified Successfully! ***\n");
+            printf("Welcome to ATM!\n\n");
+
+            // ATM transaction menu - runs until user chooses to exit
+            while (1) {
+                printf("\n===== ATM MENU =====\n");
+                printf("1. Check Balance\n");
+                printf("2. Withdraw Money\n");
+                printf("3. Deposit Money\n");
+                printf("4. Exit\n");
+                printf("====================\n");
+                printf("Enter your choice (1-4): ");
+                scanf("%d", &choice);
+
+                switch (choice) {
+                    case 1:
+                        printf("\n--- Your Balance: Rs. %d ---\n", balance);
+                        break;
+
+                    case 2:
+                        printf("Enter amount to withdraw: Rs. ");
+                        scanf("%d", &amount);
+                        if (amount > balance) {
+                            printf("*** Insufficient Balance! ***\n");
+                        } else if (amount <= 0) {
+                            printf("*** Invalid Amount! ***\n");
+                        } else {
+                            balance -= amount;
+                            printf("*** Withdrawal Successful! ***\n");
+                            printf("Remaining Balance: Rs. %d\n", balance);
+                        }
+                        break;
+
+                    case 3:
+                        printf("Enter amount to deposit: Rs. ");
+                        scanf("%d", &amount);
+                        if (amount <= 0) {
+                            printf("*** Invalid Amount! ***\n");
+                        } else {
+                            balance += amount;
+                            printf("*** Deposit Successful! ***\n");
+                            printf("New Balance: Rs. %d\n", balance);
+                        }
+                        break;
+
+                    case 4:
+                        printf("\nThank you for using ATM!\n");
+                        printf("Your card has been ejected.\n");
+                        return 0;
+
+                    default:
+                        printf("*** Invalid Choice! Please enter 1-4 ***\n");
+                }
+            }
+        } else {
+            attempts++;
+            printf("*** Wrong PIN! ***\n");
+            printf("Attempts remaining: %d\n\n", 3 - attempts);
+        }
+    }
+
+    // Card blocked after 3 failed attempts
+    printf("\n*** CARD BLOCKED! ***\n");
+    printf("Your card has been blocked after 3 failed attempts.\n");
+    printf("Please contact your bank for assistance.\n");
+
+    return 0;
+}
