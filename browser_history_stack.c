@@ -8,27 +8,27 @@ typedef struct {
     int top;
 } Stack;
 
-// Initialize the stack
+
 void initStack(Stack *s) {
     s->top = -1;
 }
 
-// Check if stack is empty
+
 int isEmpty(Stack *s) {
     return s->top == -1;
 }
 
-// Check if stack is full
+
 int isFull(Stack *s) {
     return s->top == MAX_SIZE - 1;
 }
 
-// Get the size of the stack
+
 int size(Stack *s) {
     return s->top + 1;
 }
 
-// Push a page ID onto the stack
+
 void push(Stack *s, int pageID) {
     if (isFull(s)) {
         printf("ERROR: History is full! Cannot push page ID %d\n", pageID);
@@ -38,7 +38,7 @@ void push(Stack *s, int pageID) {
     printf("Opened Page: %d (Stack size: %d)\n", pageID, size(s));
 }
 
-// Pop the top page ID from the stack
+
 int pop(Stack *s) {
     if (isEmpty(s)) {
         printf("ERROR: No pages to go back to!\n");
@@ -50,7 +50,7 @@ int pop(Stack *s) {
     return pageID;
 }
 
-// Peek at the current page without removing it
+
 int peek(Stack *s) {
     if (isEmpty(s)) {
         printf("ERROR: No pages in history!\n");
@@ -59,7 +59,7 @@ int peek(Stack *s) {
     return s->pageID[s->top];
 }
 
-// Display the entire history
+
 void displayHistory(Stack *s) {
     if (isEmpty(s)) {
         printf("History is empty!\n");
@@ -82,7 +82,7 @@ int main() {
 
     printf("=== Browser History Stack Demo ===\n\n");
 
-    // Sample Use Case: Open pages 101, 102, 103
+    
     printf("--- Opening Pages ---\n");
     push(&browserStack, 101);
     push(&browserStack, 102);
@@ -90,32 +90,32 @@ int main() {
 
     displayHistory(&browserStack);
 
-    // Display current page
+    
     printf("Current Page: %d\n", peek(&browserStack));
     printf("Total pages in history: %d\n\n", size(&browserStack));
 
-    // User clicks Back button
+    
     printf("--- Back Button Pressed ---\n");
     pop(&browserStack);
 
     displayHistory(&browserStack);
 
-    // Display current page after back
+    
     printf("Current Page: %d\n", peek(&browserStack));
     printf("Total pages in history: %d\n\n", size(&browserStack));
 
-    // Additional operations
+    
     printf("--- Additional Operations ---\n");
     pop(&browserStack);
     displayHistory(&browserStack);
 
     printf("Current Page: %d\n", peek(&browserStack));
 
-    // Try to go back when only one page left
+    
     pop(&browserStack);
     printf("Is history empty? %s\n", isEmpty(&browserStack) ? "YES" : "NO");
 
-    // Try to pop from empty stack
+    
     pop(&browserStack);
 
     return 0;
