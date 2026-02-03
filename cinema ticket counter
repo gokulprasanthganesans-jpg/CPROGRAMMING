@@ -1,0 +1,34 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+struct Queue {
+    int *array;       
+    int capacity;    
+    int front;        
+    int rear;         
+    int count;        
+};
+struct Queue* createQueue(int size) {
+    struct Queue* q = (struct Queue*)malloc(sizeof(struct Queue));
+    q->capacity = size;
+    q->front = 0;
+    q->rear = -1;
+    q->count = 0;
+    q->array = (int*)malloc(q->capacity * sizeof(int));
+    return q;
+}
+
+
+bool isEmpty(struct Queue* q) {
+    return (q->count == 0);
+}
+
+bool isFull(struct Queue* q) {
+    return (q->rear == q->capacity - 1);
+}
+int size(struct Queue* q) {
+    return q->count;
+}
+void enqueue(struct Queue* q, int customerID) {
+    if (isFull(q)) {
+        printf("Queue Overflow! Cannot add Customer %d.\n", cu…
